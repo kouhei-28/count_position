@@ -55,7 +55,7 @@ def output_member(data):
     member_list = member_list + extract_triangle(data, df) + '\n' + '\n'
 
     member_list = member_list + '未記入' + '\n'
-    member_list = member_list + extract_nan(data, df) + '\n' + '\n'
+    member_list = member_list + extract_nan(data, df)
 
     return member_list
 
