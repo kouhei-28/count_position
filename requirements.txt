@@ -1,3 +1,4 @@
 requests
 flask
 line-bot-sdk
+pandas
