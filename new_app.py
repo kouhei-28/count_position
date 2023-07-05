@@ -14,15 +14,16 @@ from linebot.models import (
 import os
 import requests
 import pandas as pd
+import io
 
 def get_data_frame():
     response = requests.get('https://chouseisan.com/schedule/List/createCsv?h=0802c13d816b468fa531dc5c6c831cc4&charset=sjis&row=choice')
 
-    f = open('myfile.csv', 'w')
-    f.write(response.text)
-    f.close()
+    # f = open('myfile.csv', 'w')
+    # f.write(response.text)
+    # f.close()
 
-    return pd.read_csv('myfile.csv', encoding = "shift-jis", header=1, index_col=0)
+    return pd.read_csv(io.StringIO(response.text), encoding = "shift-jis", header=1, index_col=0)
 
 def extract_by_position_and_data(position, data, df):
     df = df.filter(like=data, axis=0)
