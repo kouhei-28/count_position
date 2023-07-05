@@ -45,7 +45,7 @@ def extract_nan(data, df):
     return ','.join(list)
 
 def output_member(data):
-    member_list = '参加者\n\n'
+    member_list = data + '参加者\n\n'
     df = get_data_frame()
     for position in ['AT', 'MF', 'LG', 'GL', 'FO', 'MG']:
         member_list = member_list + position + '\n'
