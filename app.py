@@ -26,8 +26,9 @@ def get_data_frame():
     return pd.read_csv(io.StringIO(response.text), encoding = "shift-jis", header=1, index_col=0)
 
 def extract_by_position_and_data(position, data, df):
-    grep_data = '[^0-9]' + data + '[^0-9]'
-    df = df.filter(regex=grep_data, axis=0)
+    # grep_data = '[^0-9]' + data + '[^0-9]'
+    # df = df.filter(regex=grep_data, axis=0)
+    df = df.filter(like=data, axis=0)
     df = df.filter(like=position, axis=1)
     df = df.loc[:, df.isin(['◯']).any()]
     list = [s.replace(position, '') for s in df.columns.values]
