@@ -26,7 +26,8 @@ def get_data_frame():
     return pd.read_csv(io.StringIO(response.text), encoding = "shift-jis", header=1, index_col=0)
 
 def extract_by_position_and_data(position, data, df):
-    df = df.filter(like=data, axis=0)
+    grep_data = '[^0-9]' + data + '[^0-9]'
+    df = df.filter(regex=grep_data, axis=0)
     df = df.filter(like=position, axis=1)
     df = df.loc[:, df.isin(['◯']).any()]
     list = [s.replace(position, '') for s in df.columns.values]
@@ -47,7 +48,7 @@ def extract_nan(data, df):
 def output_member(data):
     member_list = data + '参加者\n\n'
     df = get_data_frame()
-    for position in ['AT', 'MF', 'LG', 'GL', 'FO', 'MG']:
+    for position in ['AT', 'MF', 'SSDM', 'LG', 'GL', 'FO', 'MG']:
         member_list = member_list + position + '\n'
         member_list = member_list + extract_by_position_and_data(position, data, df) + '\n' + '\n'
 
