@@ -34,13 +34,15 @@ def extract_by_position_and_data(position, data, df):
     return ','.join(list)
 
 def extract_triangle(data, df):
-    df = df.filter(like=data, axis=0)
+    grep_data = '(?<!\d)' + data + '(?!\d)'
+    df = df.filter(regex=grep_data, axis=0)
     df = df.loc[:, df.isin(['△']).any()]
     list = [s for s in df.columns.values]
     return ','.join(list)
 
 def extract_nan(data, df):
-    df = df.filter(like=data, axis=0)
+    grep_data = '(?<!\d)' + data + '(?!\d)'
+    df = df.filter(regex=grep_data, axis=0)
     df = df.loc[:, df.isnull().any()]
     list = [s for s in df.columns.values]
     return ','.join(list)
